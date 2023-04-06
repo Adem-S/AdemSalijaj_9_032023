@@ -33,9 +33,6 @@ label {
   margin-left: 50px;
 }
 
-.white-text {
-  color: #fff;
-}
 
 #btn-send-bill {
   width: 100px;
@@ -51,6 +48,7 @@ label {
 textarea, input, select {
   color: #0E5AE5 !important;
   opacity: 0.7 !important;
+  min-width: 60px;
 }
 
 textarea:focus, input:focus, select:focus {

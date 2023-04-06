@@ -55,6 +55,10 @@
   color: #fff;
 }
 
+.icons-container {
+  display: flex;
+}
+
 .icons-container span {
   margin: 8px;
 }

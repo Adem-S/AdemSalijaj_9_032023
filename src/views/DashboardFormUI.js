@@ -2,6 +2,7 @@ import calendarIcon from "../assets/svg/calendar.js";
 import euroIcon from "../assets/svg/euro.js";
 import pctIcon from "../assets/svg/pct.js";
 import eyeWhite from "../assets/svg/eye_white.js";
+import downloadIconWhite from "../assets/svg/download_white.js";
 import { formatDate } from "../app/format.js";
 
 export const modal = () => `
@@ -74,6 +75,13 @@ export default (bill) => {
               <span id="icon-eye-d" data-testid="icon-eye-d" data-bill-url="${
                 bill.fileUrl
               }"> ${eyeWhite} </span>
+              <span id="icon-eye-d" data-testid="icon-download-d" data-bill-url="${
+                bill.fileUrl
+              }">
+              <a href=${
+                bill.fileUrl
+              } target="_blank" download >${downloadIconWhite}</a>
+              </span>
             </div>
           </div>
         </div>

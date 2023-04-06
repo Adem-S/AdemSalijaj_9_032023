@@ -6,5 +6,8 @@ export default (billUrl) => {
       <div id="eye" data-testid="icon-eye" data-bill-url=${billUrl}>
       ${eyeBlueIcon}
       </div>
+      <div id="download" data-testid="icon-download" data-bill-url=${billUrl}>
+      <a href=${billUrl} target="_blank" download>${downloadBlueIcon}</a>
+      </div>
     </div>`;
 };
