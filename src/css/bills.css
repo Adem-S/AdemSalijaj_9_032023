@@ -52,6 +52,8 @@
   border-radius: 10px;
   padding-bottom: 16px;
   height: 70vh;
+  overflow-y: scroll;
+  overflow-x: visible;
 }
 
 .icon-actions {
@@ -112,4 +114,29 @@ tr td:nth-of-type(5) {
 
 .bill-proof-container {
   overflow: scroll;
+}
+
+@media screen and (max-width: 480px) {
+  .content {
+    margin-top: 38px; 
+    margin-left: 38px; 
+    margin-right: 38px;
+    width: auto;
+  }
+
+  .content-title{
+    font-size: 32px;
+    line-height: 32px;
+    margin-bottom: 10px;
+  }
+
+  .content-header {
+    width: 100%; 
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .content-inner {
+    padding: 20px;
+  }
 }

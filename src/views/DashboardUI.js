@@ -14,7 +14,7 @@ export default ({ data, loading, error }) => {
 
   return `
     <div class='layout'>
-      ${VerticalLayout(120)}
+      ${VerticalLayout()}
       <div class='dashboard-content'>
         <div class='bills-feed'>
           <div class='status-bills-header'>

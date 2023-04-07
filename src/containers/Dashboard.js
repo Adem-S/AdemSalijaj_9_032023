@@ -103,7 +103,6 @@ export default class {
       });
       $(`#open-bill${bill.id}`).css({ background: "#2A2B35" });
       $(".dashboard-right-container div").html(DashboardFormUI(bill));
-      $(".vertical-navbar").css({ height: "150vh" });
       this.counter++;
     } else {
       $(`#open-bill${bill.id}`).css({ background: "#0D5AE5" });
@@ -111,7 +110,6 @@ export default class {
       $(".dashboard-right-container div").html(`
         <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
       `);
-      $(".vertical-navbar").css({ height: "120vh" });
       this.counter--;
     }
     $("#icon-eye-d").click(this.handleClickIconEye);

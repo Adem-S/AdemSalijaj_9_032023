@@ -86,3 +86,11 @@
 #file-name-admin {
   max-width: 300px;
 }
+
+
+@media screen and (max-width: 480px) {
+  .file-flex {
+    width: 100%;
+    min-width: 0;
+  }
+}
