@@ -138,6 +138,24 @@ describe("Given I am connected as an employee", () => {
     });
   });
 
+  describe("When I am on NewBill Page and I change the expense name field", () => {
+    test("Then, the value the expense name field changes", async () => {
+      document.body.innerHTML = "";
+      const root = document.createElement("div");
+      root.setAttribute("id", "root");
+      document.body.append(root);
+      router();
+      window.onNavigate(ROUTES_PATH.NewBill);
+
+      let expenseName = screen.getByTestId("expense-name");
+      expect(expenseName.value).toBe("");
+      fireEvent.change(expenseName, {
+        target: { value: "New Bill test" },
+      });
+      expect(expenseName.value).toBe("New Bill test");
+    });
+  });
+
   describe("When I am on NewBill Page and I click on submit button", () => {
     beforeAll(() => {
       document.body.innerHTML = "";
