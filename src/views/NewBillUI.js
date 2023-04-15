@@ -23,7 +23,7 @@ export default (loading, error) => {
                   <div class="col-half">
                     <label for="expense-type" class="bold-label">Type de dépense</label>
                       <select required class="form-control blue-border" data-testid="expense-type">
-                        <option>Transports</option>
+                        <option selected>Transports</option>
                         <option>Restaurants et bars</option>
                         <option>Hôtel et logement</option>
                         <option>Services en ligne</option>
@@ -69,7 +69,8 @@ export default (loading, error) => {
             <div class="row">
               <div class="col-md-6">
                 <div class="col-half">
-                  <button type="submit" id='btn-send-bill' class="btn btn-primary">Envoyer</button>
+                  <button type="submit" id='btn-send-bill' data-testid="btn-submit" class="btn btn-primary">Envoyer</button>
+                  <p class="error-message-form" data-testid="error-message-form"></p>
                 </div>
               </div>
             </div>

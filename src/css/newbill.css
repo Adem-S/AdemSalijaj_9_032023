@@ -60,6 +60,11 @@ textarea:focus, input:focus, select:focus {
   color: #0E5AE5 !important;
 }
 
+.error-message-form {
+  color: red;
+  margin-top: 5px;
+}
+
 @media screen and (max-width: 480px) { 
   .col-half-row {
     align-items: center;

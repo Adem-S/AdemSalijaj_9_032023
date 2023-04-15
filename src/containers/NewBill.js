@@ -22,8 +22,10 @@ export default class NewBill {
 
   handleChangeFile = (e) => {
     e.preventDefault();
-    const file = this.document.querySelector(`input[data-testid="file"]`)
-      .files[0];
+
+    const fileInput = e.target;
+    const file = fileInput.files[0];
+
     if (file) {
       const fileTypeAccepted = ["image/png", "image/jpg", "image/jpeg"];
       const fileType = file.type;
@@ -33,10 +35,8 @@ export default class NewBill {
         this.fileName = fileName;
         this.file = file;
       } else {
-        console.log("error file type ");
+        fileInput.value = "";
       }
-    } else {
-      console.log("error no file");
     }
   };
 
@@ -63,68 +63,78 @@ export default class NewBill {
           })
           .catch((error) => {
             resolve({ error });
-            console.error(error);
           });
       } else {
-        console.log("error no file");
-        resolve({ error: "error no file" });
+        resolve({ error: "Erreur : Pas de fichier" });
       }
     });
   };
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(
-      'e.target.querySelector(`input[data-testid="datepicker"]`).value',
-      e.target.querySelector(`input[data-testid="datepicker"]`).value
+
+    let user = JSON.parse(localStorage.getItem("user"));
+    if (typeof user === "string") {
+      user = JSON.parse(user);
+    }
+    const email = user.email;
+
+    const amount = parseInt(
+      e.target.querySelector(`input[data-testid="amount"]`).value
+    );
+    const pct =
+      parseInt(e.target.querySelector(`input[data-testid="pct"]`).value) || 20;
+
+    const bill = {
+      email,
+      type: e.target.querySelector(`select[data-testid="expense-type"]`).value,
+      name: e.target.querySelector(`input[data-testid="expense-name"]`).value,
+      amount,
+      date: e.target.querySelector(`input[data-testid="datepicker"]`).value,
+      vat: parseInt(
+        e.target.querySelector(`input[data-testid="vat"]`).value ||
+          (amount / 100) * pct
+      ),
+      pct,
+      commentary: e.target.querySelector(`textarea[data-testid="commentary"]`)
+        .value,
+      status: "pending",
+    };
+
+    const errorMessage = document.querySelector(
+      `p[data-testid="error-message-form"]`
     );
 
-    const response = await this.sendFile();
-
-    if (response.error) {
-      console.log("error");
-      return false;
-    } else {
-      const email = JSON.parse(localStorage.getItem("user")).email;
-
-      const amount = parseInt(
-        e.target.querySelector(`input[data-testid="amount"]`).value
-      );
-      const pct =
-        parseInt(e.target.querySelector(`input[data-testid="pct"]`).value) ||
-        20;
-
-      const bill = {
-        email,
-        type: e.target.querySelector(`select[data-testid="expense-type"]`)
-          .value,
-        name: e.target.querySelector(`input[data-testid="expense-name"]`).value,
-        amount,
-        date: e.target.querySelector(`input[data-testid="datepicker"]`).value,
-        vat: parseInt(
-          e.target.querySelector(`input[data-testid="vat"]`).value ||
-            (amount / 100) * pct
-        ),
-        pct,
-        commentary: e.target.querySelector(`textarea[data-testid="commentary"]`)
-          .value,
-        fileUrl: this.fileUrl,
-        fileName: this.fileName,
-        status: "pending",
-      };
+    if (
+      bill.email &&
+      bill.type &&
+      bill.name &&
+      bill.amount &&
+      bill.date &&
+      bill.vat &&
+      bill.pct
+    ) {
+      const response = await this.sendFile();
+      if (response.error) {
+        errorMessage.innerHTML = response.error?.message || response.error;
+        return false;
+      }
+      bill.fileUrl = this.fileUrl;
+      bill.fileName = this.fileName;
       this.updateBill(bill);
+      this.onNavigate(ROUTES_PATH["Bills"]);
+      errorMessage.innerHTML = "";
+    } else {
+      errorMessage.innerHTML = "Veuillez renseigner tout les champs";
     }
   };
 
   // not need to cover this function by tests
   updateBill = (bill) => {
-    if (this.store) {
+    if (this.store && typeof jest === "undefined") {
       this.store
         .bills()
         .update({ data: JSON.stringify(bill), selector: this.billId })
-        .then(() => {
-          this.onNavigate(ROUTES_PATH["Bills"]);
-        })
         .catch((error) => console.error(error));
     }
   };

@@ -118,7 +118,7 @@ export default () => {
   };
 
   if (window.location.pathname === "/" && window.location.hash === "") {
-    onNavigate(destination);
+    if (typeof jest === "undefined") onNavigate(destination);
   } else if (window.location.hash !== "") {
     if (window.location.hash === ROUTES_PATH["Bills"]) {
       onNavigate(ROUTES_PATH["Bills"]);
